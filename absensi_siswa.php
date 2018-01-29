@@ -31,10 +31,11 @@ function data_siswa_instalasi() {
     $charset_collate = $wpdb->get_charset_collate();
     $sql = "CREATE TABLE IF NOT EXISTS $table_absensi(
       `id` int(10) NOT NULL AUTO_INCREMENT,
-        `nis` varchar(10) NOT NULL,
+        `nis` int(9) NOT NULL,
         `tanggal` date NOT NULL,
         `absensi` varchar(4) NOT NULL,
-        PRIMARY KEY (`id`)
+        PRIMARY KEY (`id`),
+        KEY (`nis`) USING BTREE
       ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4;";
     $sql2 =  "CREATE TABLE IF NOT EXISTS $table_siswa(
       nis int(9) NOT NULL,
@@ -43,7 +44,8 @@ function data_siswa_instalasi() {
       alamat varchar(200) NOT NULL,
       kota varchar(200) NOT NULL,
       telepon varchar(50) NOT NULL,
-        PRIMARY KEY (`nis`)
+        PRIMARY KEY (`nis`),
+        KEY (`kelas`) USING BTREE
       ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
     $sql3 = "CREATE TABLE IF NOT EXISTS $table_kelas(
       `id_kelas` varchar(11) NOT NULL,
@@ -74,6 +76,12 @@ INSERT INTO $table_kelas (`id_kelas`, `kelas`) VALUES
 ('7B', '7B'),
 ('7C', '7C'),
 ('7D', '7D');
+
+ALTER TABLE $table_siswa
+  ADD CONSTRAINT `fk_siswa_kelas` FOREIGN KEY (`kelas`) REFERENCES $table_kelas  (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE $table_absensi
+    ADD CONSTRAINT `fk_siswa_absensi` FOREIGN KEY (`nis`) REFERENCES $table_siswa  (`nis`) ON DELETE CASCADE ON UPDATE CASCADE;
 ";
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta($sql);

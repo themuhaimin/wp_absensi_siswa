@@ -45,8 +45,8 @@ function kelola_kelas() {
        <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
            <p>Three capital letters for the ID</p>
            <table>
-             <tr><td>NIS :</td><td><input type='text' disabled="disable" name='id' value='<?php echo $v_id_kelas; ?>' /></td></tr>
-             <tr><td>Nama Siswa:</td><td><input type='text' name='kelas' value='<?php echo $v_kelas; ?>' /></td></tr>
+             <tr><td>Id Kelas :</td><td><input type='text' disabled="disable" name='id' value='<?php echo $v_id_kelas; ?>' /></td></tr>
+             <tr><td>Nama Kelas:</td><td><input type='text' name='kelas' value='<?php echo $v_kelas; ?>' /></td></tr>
              <input type='hidden' name='id_kelas' value='<?php echo $v_id_kelas; ?>' />
              <tr><td><input type='submit' name='insert' value='Edit' class="button button-primary"/><input type='hidden' value='1' name='proses_edit' /></td>
              <td><a href="admin.php?page=kelola_kelas" class="button button-primary">Batal</a></td></tr>
@@ -66,9 +66,9 @@ function kelola_kelas() {
                 array('%s') //where
         );
         if($update){
-          $message.="Data Siswa Berhasil Diubah";
+          $message.="Data Kelas Berhasil Diubah";
         } else {
-          $message.="Data Siswa Gagal Diubah";
+          $message.="Data Kelas Gagal Diubah";
         }
        }
      //untuk tampilan edit dengan menghilangkan tombol tambah
